@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class StudentRepositoryTest {
+
     @Autowired
     private StudentRepository studentRepository;
 
@@ -48,5 +49,52 @@ class StudentRepositoryTest {
                 studentRepository.findAll();
 
         System.out.println("studentList= "+studentList);
+    }
+    @Test
+    public void printStudentByFirstName(){
+        List<Student> students=studentRepository.findByFirstName("Mohit");
+        System.out.println("students: "+students);
+    }
+
+    @Test
+    public void printStudentByFirstNameContaining(){
+        List<Student> students=studentRepository.findByFirstNameContaining("Mo");
+        System.out.println("students: "+students);
+    }
+
+    @Test
+    public void printStudentBasedOnGuardianName() {
+        List<Student> students = studentRepository.findByGuardianGuardianName("Anjana");
+        System.out.println("students: " + students);
+    }
+
+    @Test
+    public void printgetStudentByEmailAddress(){
+        Student student=
+                studentRepository.getStudentByEmailAddress("jainmohit438@gmail.com");
+        System.out.println("student : "+student);
+    }
+    @Test
+    public void printgetStudentFirstNameByEmailAddress(){
+        String firstName=studentRepository.getStudentFirstNameByEmailAddress("jainmohit438@gmail.com");
+        System.out.println(firstName);
+    }
+
+    @Test
+    public void printgetStudentByEmailAddressNative(){
+        Student student=studentRepository.getStudentByEmailAddressNative("singhalHarshit@gmail.com");
+        System.out.println(student);
+    }
+
+    @Test
+    public void printgetStudentByEmailAddressNativeNamedParam(){
+        Student student=studentRepository.getStudentByEmailAddressNativeNamedParam("jainmohit438@gmail.com");
+        System.out.println(student);
+    }
+    @Test
+    public void updateStudentByEmailId(){
+        studentRepository.updateStudentNameByEmailId(
+                "Monti","jainmohit438@gmail.com"
+        );
     }
 }
