@@ -1,6 +1,7 @@
 package com.Record.Department.repository;
 
 import com.Record.Department.entity.Course;
+import com.Record.Department.entity.Student;
 import com.Record.Department.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,31 @@ class CourseRepositoryTest {
                 courseRepository.findByTitleContaining("D",firstPageTenRecords).getContent();
 
         System.out.println(courses);
+    }
+
+    @Test
+    public void saveCourseWithStudentAndTeacher(){
+
+        Teacher teacher=Teacher.builder()
+                .firstName("Sunil")
+                .lastName("Mishra")
+                .build();
+
+        Student student=Student.builder()
+                .firstName("Rajesh")
+                .lastName("Gurjar")
+                .emailId("gujjar@gmail.com")
+                .build();
+
+        Course course=Course
+                .builder()
+                .title("AI")
+                .credit(5)
+                .teacher(teacher)
+                .build();
+
+        course.addStudents(student);
+
+        courseRepository.save(course);
     }
 }

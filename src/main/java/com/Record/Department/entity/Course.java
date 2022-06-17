@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,4 +41,25 @@ public class Course {
             referencedColumnName = "teacherId"
     )
     private Teacher teacher;
+
+    @ManyToMany(
+            cascade = CascadeType.ALL
+    )
+    @JoinTable(
+            name = "student_course",
+            joinColumns = @JoinColumn(
+                    name = "courseId",
+                    referencedColumnName = "courseId"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "student_Id",
+                    referencedColumnName = "student_id"
+            )
+    )
+    private List<Student>students;
+
+    public void addStudents(Student student){
+        if (students==null) students=new ArrayList<>();
+        students.add(student);
+    }
 }
